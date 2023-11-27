@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CetContact.Views.EditContactPage"
+             Title="EditContact">
+    <VerticalStackLayout>
+        <Label 
+            Text=""
+            x:Name="ContactIdLabel"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="İsim"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Label 
+      Text="E-posta"
+      VerticalOptions="Center" 
+      HorizontalOptions="Center" />
+        <Label 
+    Text="Telefon"
+    VerticalOptions="Center" 
+    HorizontalOptions="Center" />
+        <Label 
+    Text="Adres"
+    VerticalOptions="Center" 
+    HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
