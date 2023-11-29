@@ -20,6 +20,7 @@ namespace CetContact.Model
             database.CreateTableAsync<ContactInfo>(CreateFlags.AllImplicit | CreateFlags.AutoIncPK).GetAwaiter().GetResult();
         }
        
+       
         public async Task<List<ContactInfo>> GetAllContacts () { 
             return await database.Table<ContactInfo>().ToListAsync();
         }
