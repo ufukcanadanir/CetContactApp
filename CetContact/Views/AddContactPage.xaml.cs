@@ -1,3 +1,5 @@
+using CetContact.Model;
+
 namespace CetContact.Views;
 
 public partial class AddContactPage : ContentPage
@@ -14,5 +16,16 @@ public partial class AddContactPage : ContentPage
        
         Shell.Current.GoToAsync("..");
 
+    }
+
+    private void SaveButton_Clicked(object sender, EventArgs e)
+    {
+        ContactInfo contact = new ContactInfo
+        {
+            Name = NameEntry.Text,
+            Phone = PhoneEntry.Text,
+            Address = AdressEntry.Text,
+            Email = EmailEntry.Text,
+        };
     }
 }

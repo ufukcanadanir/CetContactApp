@@ -32,21 +32,25 @@ public partial class ContactsPage : ContentPage
     private void AddContactButton_Clicked(object sender, EventArgs e)
     {
 		Shell.Current.GoToAsync(nameof(AddContactPage));
+       
     }
 
     private void ContactsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
 		if(ContactsList.SelectedItem != null)
 		{
+            
 			ContactInfo selectedContact= ContactsList.SelectedItem as ContactInfo;
             int selectedID= selectedContact.Id; 
 
            // DisplayAlert("You Clicked", $"//{nameof(EditContactPage)}?id={selectedID}", "ok");
-            Shell.Current.GoToAsync($"{nameof(EditContactPage)}?id={selectedID}");
+            Shell.Current.GoToAsync($"{nameof(EditContactPage)}?id={selectedID}"); //EditContactPage?id=2
 
             ContactsList.SelectedItem = null;
 
 
         }
     }
+
+   
 }
