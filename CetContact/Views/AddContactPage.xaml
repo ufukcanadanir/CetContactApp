@@ -30,7 +30,7 @@
                 <Entry x:Name="AdressEntry" VerticalOptions="Center" WidthRequest="200"></Entry>
             </HorizontalStackLayout>
         </Frame>
-        <Button Text="Geri Dön" x:Name="SaveButton" Clicked="SaveButton_Clicked"></Button>
+        <Button Text="Kaydet" x:Name="SaveButton" Clicked="SaveButton_Clicked"></Button>
         <Button Text="Geri Dön" x:Name="BackButton" Clicked="BackButton_Clicked"></Button>
     </VerticalStackLayout>
 </ContentPage>
