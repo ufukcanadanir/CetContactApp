@@ -40,5 +40,10 @@ namespace CetContact.Model
         {
             await database.UpdateAsync(contact);
         }
+
+        public async Task RemoveContact(ContactInfo contact)
+        {
+            await database.DeleteAsync(contact);
+        }
     }
 }

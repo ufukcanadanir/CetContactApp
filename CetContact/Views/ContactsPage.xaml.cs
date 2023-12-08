@@ -1,4 +1,5 @@
 ﻿using CetContact.Model;
+using Microsoft.Maui.ApplicationModel.Communication;
 
 namespace CetContact.Views;
 
@@ -8,24 +9,6 @@ public partial class ContactsPage : ContentPage
 	public ContactsPage()
 	{
 		InitializeComponent();
-		//List<string> contacts2 = new List<string> {"Hüseyin Şimşek", "Ufuk Adanır" ,"Selim Tetik" , "Talha Zengin"};
-
-		//List<ContactInfo> contacts = new List<ContactInfo>() { 
-		//	new ContactInfo {
-		//              Id=1,
-		//		Name = "Hüseyin Şimşek", 
-		//		Email="huseyin.simsek@boun.edu.tr",
-		//		Phone="905333003030",
-		//		Address=""
-		//		},
-		//          new ContactInfo {
-		//              Id=2,
-		//              Name = "Ufuk Adanır",
-		//              Email="ufuk.adanir@gmail.com",
-		//              Phone="905333004040",
-		//              Address=""
-		//              }
-		//      };
 		contactRepository = new ContactRepository();
 		
 	}
@@ -48,16 +31,36 @@ public partial class ContactsPage : ContentPage
 		{
             
 			ContactInfo selectedContact= ContactsList.SelectedItem as ContactInfo;
-            int selectedID= selectedContact.Id; 
-
-           // DisplayAlert("You Clicked", $"//{nameof(EditContactPage)}?id={selectedID}", "ok");
+            int selectedID= selectedContact.Id;
             Shell.Current.GoToAsync($"{nameof(EditContactPage)}?id={selectedID}"); //EditContactPage?id=2
 
             ContactsList.SelectedItem = null;
 
 
+            // DisplayAlert("You Clicked", $"//{nameof(EditContactPage)}?id={selectedID}", "ok");
+
+
+
         }
     }
 
-   
+    private async void DeleteButton_Clicked(object sender, EventArgs e)
+    {
+        if(sender is Button button && button.BindingContext is ContactInfo selectedContact)
+        {
+
+            bool result = await DisplayAlert("Confirmation", $"Are you sure you want to delete {selectedContact.Name}?", "Yes", "Cancel");
+
+			if(result)
+			{
+               await contactRepository.RemoveContact(selectedContact);
+                await Shell.Current.GoToAsync("..");
+			}
+            else
+            {
+                await Shell.Current.GoToAsync("..");
+
+            }
+        }
+        }
 }

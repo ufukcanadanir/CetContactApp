@@ -8,11 +8,25 @@
                   SeparatorColor="Silver" SeparatorVisibility="Default" ItemSelected="ContactsList_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell
-                         TextColor="Black"
-                       Text="{Binding Name}"
-                        Detail="{Binding Email}"
-                        DetailColor="Blue"></TextCell>  
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--Ekrandaki Contact Infolarini gormek icin yazilan kisim -->
+                            <StackLayout Grid.Column="0">
+                                <Label Text="{Binding Name}"/>
+                                <Label Text="{Binding Email}"/>
+                            </StackLayout>
+
+                            <!--Edit ve Delete butonlarinin en sag kisimda gorunmesi icin yazilan kisim-->
+                            <StackLayout Grid.Column="1" HorizontalOptions="End" Orientation="Horizontal">
+                                <Button x:Name="DeleteButton" Text="Delete" Clicked="DeleteButton_Clicked" BackgroundColor="Red"  CornerRadius="10" CommandParameter="{Binding .}" />
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
                 
             </ListView.ItemTemplate>

@@ -35,14 +35,28 @@ public partial class EditContactPage : ContentPage
    
     private  async void SaveButton_Clicked(object sender, EventArgs e)
     {
-
+        if (string.IsNullOrWhiteSpace(NameEntry.Text) && string.IsNullOrWhiteSpace(EmailEntry.Text))
+        {
+            await DisplayAlert("Error", $"Following fields can not be empty: Name & Email?", "OK");
+        }
+        else if(string.IsNullOrWhiteSpace(NameEntry.Text))
+            {
+            await DisplayAlert("Error", $"Following fields can not be empty: Name?", "OK");
+        }
+        else if (string.IsNullOrWhiteSpace(EmailEntry.Text))
+        {
+            await DisplayAlert("Error", $"Following fields can not be empty: Email?", "OK");
+        }
+        else
+        {
         contactInfo.Name = NameEntry.Text;
         contactInfo.Phone = PhoneEntry.Text;
         contactInfo.Address = AdressEntry.Text;
         contactInfo.Email = EmailEntry.Text;
-       
+
         await contactRepository.Update(contactInfo);
         await Shell.Current.GoToAsync("..");
+        }
 
     }
 
