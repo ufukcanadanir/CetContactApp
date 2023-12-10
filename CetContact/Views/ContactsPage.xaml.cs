@@ -1,5 +1,6 @@
 ﻿using CetContact.Model;
-using Microsoft.Maui.ApplicationModel.Communication;
+using System.Collections.ObjectModel;
+using System.Data;
 
 namespace CetContact.Views;
 
@@ -15,7 +16,7 @@ public partial class ContactsPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        var contacts =await contactRepository.GetAllContacts();
+        var contacts =new ObservableCollection<ContactInfo>( await contactRepository.GetAllContacts());
         ContactsList.ItemsSource = contacts;
 
     }
@@ -54,13 +55,20 @@ public partial class ContactsPage : ContentPage
 			if(result)
 			{
                await contactRepository.RemoveContact(selectedContact);
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("//ContactsPage");
 			}
             else
             {
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("//ContactsPage");
 
             }
         }
         }
+
+    private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        SearchBar searchBar = (SearchBar)sender;
+        var searchedContacts =new ObservableCollection<ContactInfo>(await contactRepository.SearchContacts(searchBar.Text));
+        ContactsList.ItemsSource = searchedContacts;
+    }
 }

@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace CetContact.Model
     {
         private SQLiteAsyncConnection database;
         private string databaseName = "contacts2.db3";
-        
+
 
         public ContactRepository() {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, databaseName);
@@ -21,8 +22,15 @@ namespace CetContact.Model
         }
        
        
-        public async Task<List<ContactInfo>> GetAllContacts () { 
-            return await database.Table<ContactInfo>().ToListAsync();
+        public async Task<ObservableCollection<ContactInfo>> GetAllContacts () { 
+            var allContacts = await database.Table<ContactInfo>().ToListAsync();
+            var allObservableContacts = new ObservableCollection<ContactInfo>();
+            foreach (var contact in allContacts)
+            {
+                allObservableContacts.Add(contact);
+            }
+            return allObservableContacts;
+
         }
         public async Task AddContact (ContactInfo contact)
         {
@@ -44,6 +52,18 @@ namespace CetContact.Model
         public async Task RemoveContact(ContactInfo contact)
         {
             await database.DeleteAsync(contact);
+        }
+
+        public async Task<ObservableCollection<ContactInfo>> SearchContacts(string searchText)
+        {
+            var allContacts = await database.Table<ContactInfo>().ToListAsync();
+            var allObservableContacts = new ObservableCollection<ContactInfo>();
+            foreach (var contact in allContacts)
+            {
+                allObservableContacts.Add(contact);
+            }
+            var searchedContacts =new ObservableCollection<ContactInfo>(allObservableContacts.Where(x => x.Name.StartsWith(searchText, StringComparison.OrdinalIgnoreCase))?.ToList());
+            return searchedContacts;
         }
     }
 }

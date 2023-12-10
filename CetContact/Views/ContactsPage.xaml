@@ -4,18 +4,22 @@
              x:Class="CetContact.Views.ContactsPage"
              Title="Benim Kişilerim">
     <VerticalStackLayout>
+        <SearchBar   Placeholder="Search a Contact" TextChanged="SearchBar_TextChanged"/>
         <ListView x:Name="ContactsList" RowHeight="50" 
                   SeparatorColor="Silver" SeparatorVisibility="Default" ItemSelected="ContactsList_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                            <Grid>
 
-                            <!--Ekrandaki Contact Infolarini gormek icin yazilan kisim -->
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+
+                                <!--Ekrandaki Contact Infolarini gormek icin yazilan kisim -->
                             <StackLayout Grid.Column="0">
                                 <Label Text="{Binding Name}"/>
                                 <Label Text="{Binding Email}"/>
@@ -25,14 +29,15 @@
                             <StackLayout Grid.Column="1" HorizontalOptions="End" Orientation="Horizontal">
                                 <Button x:Name="DeleteButton" Text="Delete" Clicked="DeleteButton_Clicked" BackgroundColor="Red"  CornerRadius="10" CommandParameter="{Binding .}" />
                             </StackLayout>
-                        </Grid>
+                            </Grid>
                     </ViewCell>
                 </DataTemplate>
                 
             </ListView.ItemTemplate>
         </ListView>
         <Button Text="Kişi Ekle" x:Name="AddContactButton" Clicked="AddContactButton_Clicked"></Button>
-    </VerticalStackLayout>
+                        
+        </VerticalStackLayout>
     
    
 </ContentPage>
