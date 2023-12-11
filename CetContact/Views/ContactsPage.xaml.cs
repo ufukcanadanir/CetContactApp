@@ -1,6 +1,5 @@
 ﻿using CetContact.Model;
 using System.Collections.ObjectModel;
-using System.Data;
 
 namespace CetContact.Views;
 
@@ -55,7 +54,8 @@ public partial class ContactsPage : ContentPage
 			if(result)
 			{
                await contactRepository.RemoveContact(selectedContact);
-                await Shell.Current.GoToAsync("//ContactsPage");
+
+                LoadContacts();
 			}
             else
             {
@@ -65,6 +65,12 @@ public partial class ContactsPage : ContentPage
         }
         }
 
+
+    private async void LoadContacts()
+    {
+        var contacts= new ObservableCollection<ContactInfo>(await contactRepository.GetAllContacts());
+        ContactsList.ItemsSource= contacts;
+    }
     private async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
         SearchBar searchBar = (SearchBar)sender;
